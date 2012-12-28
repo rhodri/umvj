@@ -10,6 +10,7 @@ BeatDetect beat;
 
 ColourWaves colourWaves;
 Quads quads;
+PerspectiveGrid grid;
 
 PImage sum;
 
@@ -31,6 +32,8 @@ void setup() {
   
   quads = new Quads();
   
+  grid = new PerspectiveGrid();
+  
   // TODO: factor out into an effects module
   background(0);
   sum = get(0, 0, width, height);
@@ -50,9 +53,10 @@ void draw() {
   image(sum, 0, 0);
   noTint();
   
-  colourWaves.draw(input.mix);
+  grid.draw(input.mix);
+  //colourWaves.draw(input.mix);
   if (beat.isOnset()) {
-    quads.event(input.mix);
+    //quads.event(input.mix);
   }
   
   sum = get(0, 0, width, height);
