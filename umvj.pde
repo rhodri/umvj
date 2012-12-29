@@ -21,6 +21,23 @@ boolean sketchFullScreen() {
   return true;
 }
 
+void keyPressed() {
+  
+  switch (key) {
+    case ' ':
+      if (input.isPlaying()) {
+        input.pause();
+      } else {
+        input.play();
+      }
+      break;
+    case 'R':
+    case 'r':
+      input.rewind();
+      break;
+  }
+}
+
 void setup() {
   size(width, height, P3D);
   int bufferSize = width;
@@ -50,8 +67,6 @@ void setup() {
   // TODO: factor out into an effects module
   background(0);
   sum = get(0, 0, width, height);
-  
-  input.play();
 }
 
 void draw() {
@@ -62,14 +77,14 @@ void draw() {
   stroke(255);
   
   // TODO: factor out into an effects module
-  tint(255, 100);
+  tint(255, 240);
   image(sum, 0, 0);
   noTint();
   
   //grid.draw(input.mix);
   waves.draw(input.mix);
   if (beat.isOnset()) {
-    // quads.event(input.mix);
+     //quads.event(input.mix);
   }
   
   sum = get(0, 0, width, height);
