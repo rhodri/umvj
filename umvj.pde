@@ -8,14 +8,18 @@ Minim minim;
 AudioPlayer input;
 BeatDetect beat;
 
-ColourWaves colourWaves;
+Waves waves;
 Quads quads;
 PerspectiveGrid grid;
 
 PImage sum;
 
-int width = 512;
-int height = 350;
+int width = 1024;
+int height = 768;
+
+boolean sketchFullScreen() {
+  return true;
+}
 
 void setup() {
   size(width, height, P3D);
@@ -26,10 +30,19 @@ void setup() {
   // input = minim.getLineIn(Minim.MONO, bufferSize);
   
   beat = new BeatDetect();
+
+  color[] colours = new color[] { #FF0000, #00FF00, #0000FF };
+  float[] freqs = new float[] { 60f, 800f, 2000f };
   
-  colourWaves = new ColourWaves();
-  colourWaves.setup(input);
+  WaveParams[] params = new WaveParams[] {
+    new WaveParams(#FF0000, 60f),
+    new WaveParams(#00FF00, 800f),
+    new WaveParams(#0000FF, 2000f)
+  };
   
+  waves = new Waves();
+  waves.setup(input);
+
   quads = new Quads();
   
   grid = new PerspectiveGrid();
@@ -49,14 +62,14 @@ void draw() {
   stroke(255);
   
   // TODO: factor out into an effects module
-  tint(255, 245);
+  tint(255, 100);
   image(sum, 0, 0);
   noTint();
   
-  grid.draw(input.mix);
-  //colourWaves.draw(input.mix);
+  //grid.draw(input.mix);
+  waves.draw(input.mix);
   if (beat.isOnset()) {
-    //quads.event(input.mix);
+    // quads.event(input.mix);
   }
   
   sum = get(0, 0, width, height);
