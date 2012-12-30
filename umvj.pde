@@ -11,6 +11,7 @@ BeatDetect beat;
 Waves waves;
 Triangles tris;
 PerspectiveGrid grid;
+Polyhedra hedra;
 
 PImage sum;
 
@@ -38,11 +39,18 @@ void keyPressed() {
     case 'S':
     case 's':
       input.skip(1000);
+      break;
+    case 'X':
+    case 'x':
+      hedra.incrementComplexity();
+      break;
   }
 }
 
 void setup() {
-  size(width, height, P3D);
+  size(width, height, OPENGL);
+  smooth();
+  
   int bufferSize = width;
   
   minim = new Minim(this);
@@ -65,6 +73,8 @@ void setup() {
   
   grid = new PerspectiveGrid();
   
+  hedra = new Polyhedra();
+  
   // TODO: factor out into an effects module
   background(0);
   sum = get(0, 0, width, height);
@@ -80,15 +90,16 @@ void draw() {
   stroke(255);
   
   // TODO: factor out into an effects module
-  tint(255, 240);
+  tint(255, 20);
   image(sum, 0, 0);
   noTint();
   
   grid.draw(input.mix);
-  waves.draw(input.mix);
+  //waves.draw(input.mix);
   if (beat.isOnset()) {
      // tris.event(input.mix);
   }
+  hedra.draw();
   
   sum = get(0, 0, width, height);
 }
