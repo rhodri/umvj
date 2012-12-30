@@ -1,10 +1,8 @@
-class Quads {
-  
-  static final int NUM_POINTS = 4;
+class Triangles {
   
   int minSideLen = 20;
   int maxSideLen = 180;
-  int padding = 10;
+  int padding = 50;
   
   ArrayList<Poly> quads = new ArrayList<Poly>();
     
@@ -21,12 +19,6 @@ class Quads {
     Vect2 c = nextRandomPoint(b);
     
     drawTriangle(buffer, new Vect2[] { a, b, c });
-    
-    // TODO, pick an extra point outside this triangle
-    // Vect2 ab = b.subtracted(a);
-    // Vect2 ac = c.subtracted(a);
-    // Vect2 bc = c.subtracted(b);
-    // float dAngle = ac.angle() - ((ac.angle() - ab.angle()) / 2);
   }
   
   void drawTriangle(AudioBuffer buffer, Vect2[] points) {
@@ -40,12 +32,12 @@ class Quads {
   
   float limitedRandom(float current, float side) {
                  
-    float minimum = current - minSideLen < padding ? (current + minSideLen) :
-                    current - maxSideLen < padding ? padding :
+    float minimum = (current - minSideLen < padding) ? (current + minSideLen) :
+                    (current - maxSideLen < padding) ? padding :
                     (current - maxSideLen);
                  
-    float maximum = current + minSideLen > (side - padding) ? (current - minSideLen) :
-                    current + maxSideLen > (side - padding) ? (side - padding) :
+    float maximum = (current + minSideLen > (side - padding)) ? (current - minSideLen) :
+                    (current + maxSideLen > (side - padding)) ? (side - padding) :
                     (current + maxSideLen);
                  
     return random(minimum, maximum);

@@ -9,7 +9,7 @@ AudioPlayer input;
 BeatDetect beat;
 
 Waves waves;
-Quads quads;
+Triangles tris;
 PerspectiveGrid grid;
 
 PImage sum;
@@ -51,9 +51,6 @@ void setup() {
   
   beat = new BeatDetect();
   beat.setSensitivity(1);
-
-  color[] colours = new color[] { #FF0000, #00FF00, #0000FF };
-  float[] freqs = new float[] { 60f, 800f, 2000f };
   
   WaveParams[] params = new WaveParams[] {
     new WaveParams(#FF0000, 60f),
@@ -64,7 +61,7 @@ void setup() {
   waves = new Waves();
   waves.setup(input);
 
-  quads = new Quads();
+  tris = new Triangles();
   
   grid = new PerspectiveGrid();
   
@@ -74,6 +71,8 @@ void setup() {
 }
 
 void draw() {
+  
+  delay(5);
   
   beat.detect(input.mix);
   
@@ -85,10 +84,10 @@ void draw() {
   image(sum, 0, 0);
   noTint();
   
-  //grid.draw(input.mix);
-  // waves.draw(input.mix);
+  grid.draw(input.mix);
+  waves.draw(input.mix);
   if (beat.isOnset()) {
-     quads.event(input.mix);
+     // tris.event(input.mix);
   }
   
   sum = get(0, 0, width, height);
