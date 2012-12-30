@@ -35,6 +35,9 @@ void keyPressed() {
     case 'r':
       input.rewind();
       break;
+    case 'S':
+    case 's':
+      input.skip(1000);
   }
 }
 
@@ -47,6 +50,7 @@ void setup() {
   // input = minim.getLineIn(Minim.MONO, bufferSize);
   
   beat = new BeatDetect();
+  beat.setSensitivity(1);
 
   color[] colours = new color[] { #FF0000, #00FF00, #0000FF };
   float[] freqs = new float[] { 60f, 800f, 2000f };
@@ -82,9 +86,9 @@ void draw() {
   noTint();
   
   //grid.draw(input.mix);
-  waves.draw(input.mix);
+  // waves.draw(input.mix);
   if (beat.isOnset()) {
-     //quads.event(input.mix);
+     quads.event(input.mix);
   }
   
   sum = get(0, 0, width, height);
