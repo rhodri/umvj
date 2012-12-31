@@ -4,6 +4,8 @@ class Triangles {
   int maxSideLen = 180;
   int padding = 50;
   
+  int multiplier= 5;
+  
   ArrayList<Poly> quads = new ArrayList<Poly>();
     
   void setup(AudioSource input) {
@@ -13,6 +15,13 @@ class Triangles {
   void event(AudioBuffer buffer) {
     
     stroke(#0000FF);
+    
+    for (int i = 0; i < multiplier; i++) {
+      generateAndDraw(buffer);
+    }
+  }
+  
+  void generateAndDraw(AudioBuffer buffer) {
     
     Vect2 a = new Vect2(paddedRandom(), paddedRandom());
     Vect2 b = nextRandomPoint(a);
