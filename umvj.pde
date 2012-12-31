@@ -37,8 +37,16 @@ void keyPressed() {
       input.rewind();
       break;
     case 'S':
+      input.skip(10000);
+      break;
     case 's':
       input.skip(1000);
+      break;
+    case 'A':
+      input.skip(-10000);
+      break;
+    case 'a':
+      input.skip(-1000);
       break;
     case 'X':
     case 'x':
@@ -58,12 +66,12 @@ void setup() {
   // input = minim.getLineIn(Minim.MONO, bufferSize);
   
   beat = new BeatDetect();
-  beat.setSensitivity(1);
+  beat.setSensitivity(0);
   
   WaveParams[] params = new WaveParams[] {
     new WaveParams(#FF0000, 60f),
-    new WaveParams(#00FF00, 800f),
-    new WaveParams(#0000FF, 2000f)
+    new WaveParams(#00FF00, 600f),
+    new WaveParams(#0000FF, 1200f)
   };
   
   waves = new Waves();
@@ -90,16 +98,16 @@ void draw() {
   stroke(255);
   
   // TODO: factor out into an effects module
-  tint(255, 20);
+  tint(255, 220);
   image(sum, 0, 0);
   noTint();
   
-  grid.draw(input.mix);
-  //waves.draw(input.mix);
+  //grid.draw(input.mix);
+  waves.draw(input.mix);
   if (beat.isOnset()) {
-     // tris.event(input.mix);
+     //tris.event(input.mix);
   }
-  hedra.draw();
+  //hedra.draw();
   
   sum = get(0, 0, width, height);
 }
